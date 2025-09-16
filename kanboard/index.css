@@ -33,7 +33,13 @@ box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border:1px solid;
   padding:20px 10px;
   border-radius:8px;
-  cursor:pointer
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.item:hover{
+  background:green;
+  color:white;
 }
 
 
