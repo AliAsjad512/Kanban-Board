@@ -14,33 +14,32 @@ AddTask.addEventListener('click',() =>{
   // let GetId= localStorage.getItem("id");
   // GetId=GetId+1;
 
-  item.setAttribute("id", "dragg1");
-  const ChangeId = document.getElementById("dragg1");
+  item.setAttribute("id", `dragg${count+1}`);
+  //const ChangeId = document.getElementById("dragg1");
+  const Eidtbtn= document.createElement('button');
+  Eidtbtn.innerHTML="Edit";
+
+  Eidtbtn.addEventListener('click',()=>{
+    
+  })
+    const Deletebtn= document.createElement('button');
+    Deletebtn.innerHTML="Delete"
   
-  ChangeId.id=`dragg${count+1}`
-  
+ 
 
   item.textContent=Input.value;
   items.append(item);
+  items.append(Eidtbtn)
+items.append(Deletebtn)
 
-  item.addEventListener("dragstart", (ev) =>{
+
+item.addEventListener("dragstart", (ev) =>{
     console.log("dragStart");
     ev.currentTarget.classList.add("dragging")
     ev.dataTransfer.clearData();
     ev.dataTransfer.setData("text",ev.target.id);
     
   })
-
-})
-
-//const Allpara= document.querySelectorAll('.item');
-
-// Allpara.forEach((p) =>{
-  
- 
-
-// })
-
 
     
 
@@ -68,6 +67,18 @@ AllBoard.forEach((item)=>{
   
  
 });
+  
+
+})
+
+//const Allpara= document.querySelectorAll('.item');
+
+// Allpara.forEach((p) =>{
+  
+ 
+
+// })
+
 
 
 
