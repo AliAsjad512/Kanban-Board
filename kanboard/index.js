@@ -20,10 +20,19 @@ AddTask.addEventListener('click',() =>{
   Eidtbtn.innerHTML="Edit";
 
   Eidtbtn.addEventListener('click',()=>{
-    
+    const UpdateInput = prompt("Please eneter value  ");
+    item.innerText = UpdateInput;
+
+
   })
     const Deletebtn= document.createElement('button');
     Deletebtn.innerHTML="Delete"
+      Deletebtn.addEventListener('click',()=>{
+         const RemoveItem = document.getElementsByClassName('item');
+         items.remove(RemoveItem);
+    
+
+  })
   
  
 
@@ -71,13 +80,6 @@ AllBoard.forEach((item)=>{
 
 })
 
-//const Allpara= document.querySelectorAll('.item');
-
-// Allpara.forEach((p) =>{
-  
- 
-
-// })
 
 
 

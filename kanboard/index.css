@@ -11,18 +11,27 @@
   display:flex;
   gap:10px;
   padding:20px;
+  
+  justify-content:center;
 
 
+}
+#add-board{
+  height:30px;
+  width:30px;
+  padding:5px;
 }
 
 
 .board{
-height:80vh;
-width:200px;
+height:90vh;
+width:20vw;
 border-radius:10px;
 border:1px #e4e4e4;
 padding:10px;
+text-align:center;
 box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+position: relative;
 }
 
 .items{
@@ -42,4 +51,21 @@ box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   color:white;
 }
 
+.Adddiv{
+  border:1px solid black;
+  height:50px;
+  width:20px;
+  position: absolute; /* Position the button relative to its positioned parent */
+  bottom: 0; /* Align it to the bottom edge of the parent */
+  left: 0; /* Align it to the left edge of the parent (or use right: 0 for right alignment) */
+  width: 100%; /* Make the button span the full width of the parent */
+  box-sizing: border-box; 
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.Task{
+ 
+  padding:5px 10px;
+}
 
