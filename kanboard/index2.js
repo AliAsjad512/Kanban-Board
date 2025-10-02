@@ -15,20 +15,37 @@ AddNewBoard.addEventListener('click',()=>{
     const headi=prompt('Enter board name');
     const boardName =document.createElement('h4');
 boardName.innerText=headi;
+
+board.addEventListener('dragover', () => {
+         
+        const flyingElement = document.querySelector('.flying');
+        
+            if(board.firstElementChild){
+               board.insertBefore(flyingElement, board.firstElementChild)
+
+            }
+            else{
+             board.appendChild(flyingElement);
+            }
+                
+           
+        
+    });
+
+
+    const AddItem= document.createElement('div');
+    AddItem.classList.add('Adddiv');
+    const AddBtn=document.createElement('button')
+    AddBtn.classList.add('Task');
+
+    AddBtn.innerText = 'Add Task';
+    newBoard.appendChild(AddBtn)
     
      newBoard.appendChild(boardName);
     mainCon.appendChild(newBoard);
    
 
 })
-
-console.log(allBoards);
-
-
-
-
-
-
 
 
 
