@@ -4,6 +4,26 @@ const addTaskBtn = document.getElementById('add-task-btn');
 const todoBoard = document.getElementById('todo-board');
 const allBoards = document.querySelectorAll('.board');
 const AddBoardBtn=document.getElementById('add-board');
+const AddNewBoard = document.getElementById('add-board');
+const mainCon = document.querySelector('.container')
+
+//incase you need new board 
+AddNewBoard.addEventListener('click',()=>{
+    const newBoard= document.createElement('div');
+    console.log(newBoard);
+    newBoard.classList.add('board');
+    const headi=prompt('Enter board name');
+    const boardName =document.createElement('h4');
+boardName.innerText=headi;
+    
+     newBoard.appendChild(boardName);
+    mainCon.appendChild(newBoard);
+   
+
+})
+
+console.log(allBoards);
+
 
 
 
@@ -20,12 +40,22 @@ allItems.forEach((item) => attachDragEvents(item))
 
 
 allBoards.forEach(board => {
+
+
+
+
     board.addEventListener('dragover', () => {
          
         const flyingElement = document.querySelector('.flying');
         
-            
-                board.appendChild(flyingElement);
+            if(board.firstElementChild){
+               board.insertBefore(flyingElement, board.firstElementChild)
+
+            }
+            else{
+             board.appendChild(flyingElement);
+            }
+                
            
         
     });
@@ -80,6 +110,8 @@ DeleteBtn.innerText = 'Delete';
 DeleteBtn.addEventListener('click',() =>{
     taskCard.remove();
 })
+
+
 
 taskCard.appendChild(taskText);
 taskCard.appendChild(EditBtn);
