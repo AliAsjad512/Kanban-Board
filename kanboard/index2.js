@@ -1,36 +1,44 @@
 
-
 const addTaskBtn = document.getElementById('add-task-btn');
 const todoBoard = document.getElementById('todo-board');
 const allBoards = document.querySelectorAll('.board');
+  
 
 const AddNewBoard = document.getElementById('add-board');
 const mainCon = document.querySelector('.container')
 
-//incase you need new board 
 AddNewBoard.addEventListener('click',()=>{
-    const newBoard= document.createElement('div');
-    console.log(newBoard);
-    newBoard.classList.add('board');
-    const headi=prompt('Enter board name');
-    const boardName =document.createElement('h4');
+    
+const newBoard= document.createElement('div');
+newBoard.classList.add('board');
+const headi=prompt('Enter board name');
+const boardName =document.createElement('h4');
+boardName.classList.add('heading');
+const deleteBoard =document.createElement('button');
+deleteBoard.innerText = 'Delete Board';
+deleteBoard.classList.add('delete');
 boardName.innerText=headi;
 newBoard.appendChild(boardName)
+newBoard.appendChild(deleteBoard)
+deleteBoard.addEventListener('click',() =>{
+mainCon.removeChild(newBoard)
+})
+
 
 newBoard.addEventListener('dragover', () => {
-         
+       
         const flyingElement = document.querySelector('.flying');
-        
-            if(newBoard.firstElementChild){
-               newBoard.insertBefore(flyingElement, newBoard.firstElementChild)
+            const firstChild = newBoard.querySelector('.heading');
+        //   if(!firstChild)
+            if(firstChild.nextElementSibling ){
+               newBoard.insertBefore(flyingElement, firstChild.nextElementSibling)
 
             }
             else{
              newBoard.appendChild(flyingElement);
             }
-                
-           
         
+                       
     });
 
 
@@ -125,12 +133,16 @@ allBoards.forEach(board => {
     board.addEventListener('dragover', () => {
          
         const flyingElement = document.querySelector('.flying');
-        
-            if(board.firstElementChild){
-               board.insertBefore(flyingElement, board.firstElementChild)
+        const firstChild = board.querySelector('.heading');
+           if(firstChild.nextElementSibling){
+          
+           
+               board.insertBefore( flyingElement,firstChild.nextElementSibling)
 
-            }
-            else{
+           
+            
+           }
+           else{
              board.appendChild(flyingElement);
             }
                 
