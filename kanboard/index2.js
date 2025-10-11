@@ -58,6 +58,7 @@ const taskCard = document.createElement('div');
 const taskText = document.createElement('p');
 taskText.classList.add('item')
 taskText.innerText = input;
+
 taskCard.setAttribute('draggable',true);
 
 taskCard.addEventListener('dragstart',() =>{
@@ -67,7 +68,7 @@ taskCard.addEventListener('dragend',() =>{
     taskCard.classList.remove('flying')
 })
 
- 
+
 
  const EditBtn=document.createElement('button')
 
@@ -90,6 +91,8 @@ DeleteBtn.addEventListener('click',() =>{
 })
 
 
+//  localStorage.setItem("edit",EditBtn);
+//   localStorage.setItem("delete",DeleteBtn);
 
 taskCard.appendChild(taskText);
 taskCard.appendChild(EditBtn);
@@ -203,6 +206,22 @@ DeleteBtn.addEventListener('click',() =>{
     taskCard.remove();
 })
 
+//console.log(taskText);
+
+let taskStorage=[];
+
+taskStorage = localStorage.getItem('task') ? JSON.parse(localStorage.getItem('task')) : [];
+
+ 
+if(taskText) taskStorage.push(taskText.innerText)
+
+
+
+
+     
+
+localStorage.setItem('task',JSON.stringify(taskStorage));
+
 
 
 taskCard.appendChild(taskText);
@@ -238,8 +257,53 @@ function attachDragEvents(target){
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    loadFromLocalStorage();
+    allBoards.forEach((board) =>{
+let storedData = localStorage.getItem('task');
+  console.log(storedData)
+  let myArray = JSON.parse(storedData);
+  for(let i=0;i<myArray.length;i++){
+    const taskCard = document.createElement('div');
+    const taskText = document.createElement('p');
+    taskText.classList.add('item')
+    taskText.innerText=myArray[i];
+    const EditBtn=document.createElement('button');
+
+    //EditBtn.classList.add('Task');
+
+    EditBtn.innerText = 'Edit Task';
+
+
+EditBtn.addEventListener('click',()=>{
+   const newText = prompt('Enter the new value', taskText.innerText);
+    if (newText) taskText.innerText = newText;
+
+})
+
+
+const DeleteBtn = document.createElement('button');
+DeleteBtn.innerText = 'Delete';
+DeleteBtn.addEventListener('click',() =>{
+    taskCard.remove();
+    localStorage.removeItem('task')
+})
+taskCard.appendChild(taskText);
+taskCard.appendChild(DeleteBtn);
+taskCard.appendChild(EditBtn);
+board.appendChild(taskCard);
+    
+  }
+
+
+
+
+    })
+  
+  
+
 });
+
+
+
 
 // function saveToLocalStorage() {
 //     const allBoards = document.querySelectorAll('.board');
