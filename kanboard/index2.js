@@ -282,10 +282,21 @@ EditBtn.addEventListener('click',()=>{
 
 const DeleteBtn = document.createElement('button');
 DeleteBtn.innerText = 'Delete';
-DeleteBtn.addEventListener('click',() =>{
+DeleteBtn.addEventListener('click', () => {
+    // 1️⃣ Remove the task from the DOM
     taskCard.remove();
-    localStorage.removeItem('task')
-})
+
+    // 2️⃣ Retrieve existing tasks from localStorage
+    let storedTasks = JSON.parse(localStorage.getItem('task')) || [];
+
+    // 3️⃣ Remove the specific task
+    // Assuming taskText is the text content of the task
+    storedTasks = storedTasks.filter(task => task !== taskText.innerText);
+
+    // 4️⃣ Save the updated array back to localStorage
+    localStorage.setItem('task', JSON.stringify(storedTasks));
+});
+
 taskCard.appendChild(taskText);
 taskCard.appendChild(DeleteBtn);
 taskCard.appendChild(EditBtn);
