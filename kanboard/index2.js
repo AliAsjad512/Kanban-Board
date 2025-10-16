@@ -3,15 +3,26 @@ const addTaskBtn = document.getElementById('add-task-btn');
 const todoBoard = document.getElementById('todo-board');
 const allBoards = document.querySelectorAll('.board');
   
+let boardsData = JSON.parse(localStorage.getItem('boardsData')) || [];
 
 const AddNewBoard = document.getElementById('add-board');
 const mainCon = document.querySelector('.container')
 
 AddNewBoard.addEventListener('click',()=>{
-    
+    let index;
 const newBoard= document.createElement('div');
 newBoard.classList.add('board');
+newBoard.dataset.id=index+1;
 const headi=prompt('Enter board name');
+const boardId = Date.now().toString(); // unique id
+newBoard.dataset.id = boardId;
+boardsData.push({
+  id: boardId,
+  name: headi,
+  tasks: []
+});
+localStorage.setItem('boardsData', JSON.stringify(boardsData));
+
 const boardName =document.createElement('h4');
 boardName.classList.add('heading');
 const deleteBoard =document.createElement('button');
@@ -19,10 +30,7 @@ deleteBoard.innerText = 'Delete Board';
 deleteBoard.classList.add('delete');
 boardName.innerText=headi;
 newBoard.appendChild(boardName)
-newBoard.appendChild(deleteBoard)
-deleteBoard.addEventListener('click',() =>{
-mainCon.removeChild(newBoard)
-})
+
 
 
 newBoard.addEventListener('dragover', () => {
@@ -98,14 +106,25 @@ taskCard.appendChild(EditBtn);
 taskCard.appendChild(DeleteBtn);
 
 newBoard.appendChild(taskCard);
+const boardId = newBoard.dataset.id;
+  const boardData = boardsData.find(b => b.id === boardId);
+  if (boardData) {
+    boardData.tasks.push({ text: input });
+    localStorage.setItem('boardsData', JSON.stringify(boardsData));
+  }
 
 
 
+})
+//newBoard.appendChild(deleteBoard)
+deleteBoard.addEventListener('click',() =>{
+mainCon.removeChild(newBoard)
 })
 
 
 
 AddItem.appendChild(AddBtn);
+AddItem.appendChild(deleteBoard)
 
 newBoard.appendChild(AddItem);
 
@@ -128,7 +147,15 @@ allItems.forEach((item) => attachDragEvents(item))
 
 
 
-allBoards.forEach(board => {
+allBoards.forEach((board,index) => {
+
+
+
+  board.dataset.id = index+1;
+  
+
+
+
 
 
     board.addEventListener('dragover', () => {  
@@ -147,6 +174,9 @@ allBoards.forEach(board => {
            
         
     });
+
+
+
 
     const AddItem= document.createElement('div');
     AddItem.classList.add('Adddiv');
@@ -253,6 +283,15 @@ AddBtn.addEventListener('click', () => {
     taskCard.addEventListener('dragstart', () => taskCard.classList.add('flying'));
     taskCard.addEventListener('dragend', () => taskCard.classList.remove('flying'));
 
+    let boardsData =[];
+
+    boardsData.push({
+  id: board.dataset.id,
+
+  tasks: []
+});
+
+
     const EditBtn = document.createElement('button');
     EditBtn.innerText = 'Edit Task';
     EditBtn.addEventListener('click', () => {
@@ -262,7 +301,7 @@ AddBtn.addEventListener('click', () => {
         taskText.innerText = newText;
 
         const boardId = board.dataset.id;
-        const boardData = boardsData.find(b => b.id === boardId);
+        const boardData = boardsData.find(b => b.id === Number(boardId));
         const taskIndex = boardData.tasks.indexOf(oldValue);
         if (taskIndex !== -1) boardData.tasks[taskIndex] = newText;
         localStorage.setItem('boardsData', JSON.stringify(boardsData));
@@ -271,8 +310,10 @@ AddBtn.addEventListener('click', () => {
     const DeleteBtn = document.createElement('button');
     DeleteBtn.innerText = 'Delete';
     DeleteBtn.addEventListener('click', () => {
-        const boardId = board.dataset.id;
-        const boardData = boardsData.find(b => b.id === boardId);
+         const boardId = board.dataset.id;
+        console.log(boardId)
+        const boardData = boardsData.find(b => b.id === Number(boardId));
+     console.log(boardData)
         boardData.tasks = boardData.tasks.filter(t => t !== taskText.innerText);
         localStorage.setItem('boardsData', JSON.stringify(boardsData));
         taskCard.remove();
@@ -283,7 +324,8 @@ AddBtn.addEventListener('click', () => {
     taskCard.appendChild(DeleteBtn);
     board.appendChild(taskCard);
 
-    const boardId = board.dataset.id;
+   const boardId = board.dataset.id;
+    
     const boardData = boardsData.find(b => b.id === boardId);
     if (boardData) {
         boardData.tasks.push(input);
@@ -321,7 +363,6 @@ function attachDragEvents(target){
 }
 
 
-let boardsData = JSON.parse(localStorage.getItem('boardsData')) || [];
 
 
 
