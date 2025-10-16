@@ -9,10 +9,10 @@ const AddNewBoard = document.getElementById('add-board');
 const mainCon = document.querySelector('.container')
 
 AddNewBoard.addEventListener('click',()=>{
-    let index;
+    
 const newBoard= document.createElement('div');
 newBoard.classList.add('board');
-newBoard.dataset.id=index+1;
+
 const headi=prompt('Enter board name');
 const boardId = Date.now().toString(); // unique id
 newBoard.dataset.id = boardId;
@@ -90,9 +90,12 @@ EditBtn.addEventListener('click',()=>{
     if (newText) taskText.innerText = newText;
     const boardId = newBoard.dataset.id;
     const boardData = boardsData.find(b => b.id === boardId);
-    const taskIndex = boardData.tasks.indexOf(taskText.innerText);
-     if (taskIndex !== -1) boardData.tasks[taskIndex] = newText;
-     localStorage.setItem('boardsData', JSON.stringify(boardsData));
+ if (boardData) {
+  const taskIndex = boardData.tasks.findIndex(t => t.text === taskText.innerText);
+  if (taskIndex !== -1) boardData.tasks[taskIndex].text = newText;
+  localStorage.setItem('boardsData', JSON.stringify(boardsData));
+}
+
 
 })
 
@@ -102,7 +105,7 @@ DeleteBtn.innerText = 'Delete';
 DeleteBtn.addEventListener('click',() =>{
      const boardId = newBoard.dataset.id;
    const boardData = boardsData.find(b => b.id === boardId);
-     boardData.tasks = boardData.tasks.filter(t => t !== taskText.innerText);
+     boardData.tasks = boardData.tasks.filter(t => t.text !== taskText.innerText);
  localStorage.setItem('boardsData', JSON.stringify(boardsData));
     taskCard.remove();
 })
@@ -127,6 +130,9 @@ const boardId = newBoard.dataset.id;
 })
 //newBoard.appendChild(deleteBoard)
 deleteBoard.addEventListener('click',() =>{
+    const boardId = newBoard.dataset.id;
+  boardsData = boardsData.filter(b => b.id !== boardId);
+  localStorage.setItem('boardsData', JSON.stringify(boardsData));
 mainCon.removeChild(newBoard)
 })
 
