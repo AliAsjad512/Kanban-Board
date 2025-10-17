@@ -5,6 +5,19 @@ const allBoards = document.querySelectorAll('.board');
   
 let boardsData = JSON.parse(localStorage.getItem('boardsData')) || [];
 
+boardsData.forEach((board) =>{
+
+console.log(board)
+
+})
+
+
+
+
+
+
+
+
 const AddNewBoard = document.getElementById('add-board');
 const mainCon = document.querySelector('.container')
 
